@@ -13,10 +13,12 @@
   <body>
     <div class="container">
       <div class = "row">
-        <div class = "col-md-4">
-          <%= render 'layouts/header' %>
-        </div >
-        <div class = "col set-border-y ">
+        <% if user_signed_in? %>
+          <div class = "col-md-4">
+            <%= render 'layouts/header' %>
+          </div >
+        <% end %>
+        <div class = "col mx-auto">
           <%= yield %>
         </div>
       </div>
