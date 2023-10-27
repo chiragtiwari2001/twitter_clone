@@ -1,0 +1,22 @@
+<div class="nav set-position-fixed full-height flex-column">
+  <div clas="nav-item">
+    <%= link_to 'CHAT LINK', root_path, class: "mb-4 nav-link", id: "logo" %>
+  </div>
+  <%= link_to 'Home', root_path, class: "nav-link"%>
+  <%= link_to 'Explore', root_path, class: "nav-link"%>
+  <%= link_to 'Notification', root_path, class: "nav-link"%>
+  <%= link_to 'Message', root_path, class: "nav-link"%>
+  <%= link_to 'List', root_path, class: "nav-link"%>
+  <%= link_to 'Bookmarks', root_path, class: "nav-link"%>
+  <%= link_to 'Communities', root_path, class: "nav-link"%>
+  <%= link_to 'Premium', root_path, class: "nav-link"%>
+  <%= link_to 'Profile', root_path, class: "nav-link"%>
+  
+  <div class="nav-link">
+    <%= button_to 'POST', "#", class: "btn btn-primary"%>
+  </div>
+
+  <div class="user-info card rounded-pill">
+    USER_AVATAR | USERENAME
+  </div>
+</div>

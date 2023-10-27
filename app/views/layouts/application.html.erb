@@ -11,6 +11,15 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <div class = "row">
+        <div class = "col-md-4">
+          <%= render 'layouts/header' %>
+        </div >
+        <div class = "col set-border-y ">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
