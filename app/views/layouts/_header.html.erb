@@ -27,7 +27,7 @@
       </button>
       <ul class="dropdown-menu rounded">
         <li>
-          <%= button_to "Edit", edit_user_registration_path, class:"dropdown-item"%>
+          <%= link_to "Edit", edit_user_registration_path, class:"dropdown-item"%>
         </li>
         <li>
           <%= button_to "Sign Out", destroy_user_session_path, class: "dropdown-item", method: :delete %>

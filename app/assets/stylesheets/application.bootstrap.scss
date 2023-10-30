@@ -21,6 +21,13 @@ body {
   border-right: 1px solid white;
 }
 
+.home-signup-button {
+  &:hover {
+    background: transparent;
+    color: white;
+  }
+}
+
 /* Header */
 
 .nav {

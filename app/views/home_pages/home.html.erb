@@ -1,3 +1,4 @@
+<% if user_signed_in? %>
 <div class="row set-border-y">
   <nav class="nav">
     <h1 class="text-center ms-auto me-auto">HOME</h1>
@@ -9,3 +10,8 @@
     </div>
   </div>
 </div>
+<% else %>
+  <h1 class="text-center">Welcome to CHAT LINK</h1>
+  <%= link_to 'Sign_Up', new_user_registration_path, class: "btn btn-light home-signup-button" %> /
+  <%= link_to 'Sign_In', new_user_session_path, class: "btn btn-outline-light"%>
+<% end %>
