@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Twitter</title>
+    <title>ECHO</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,14 +12,16 @@
 
   <body>
     <div class="container">
-      <div class = "row">
+      <div class = "row root-page">
         <% if user_signed_in? %>
-          <div class = "col-md-4">
+          <div class = "col-md-3 mb-5">
             <%= render 'layouts/header' %>
           </div >
         <% end %>
-        <div class = "col mx-auto">
+        <div class = "col mx-auto create-new-post">
           <%= yield %>
+        </div>
+        <div class="col-2">
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <div class="nav set-position-fixed full-height flex-column">
   
   <div clas="nav-item">
-    <%= link_to 'CHAT LINK', root_path, class: "mb-3 nav-link", id: "logo" %>
+    <%= link_to 'ECHO', root_path, class: "mb-3 nav-link", id: "logo" %>
   </div>
 
   <%= link_to 'Home', root_path, class: "nav-link"%>
@@ -18,7 +18,7 @@
     <%= link_to 'Profile', root_path, class: "nav-link"%>
     
     <div class="nav-link">
-      <%= button_to 'POST', "#", class: "btn btn-primary mb-4"%>
+      <%= button_to 'POST', new_post_path, class: "btn btn-primary mb-4 rounded-pill", method: :get, data: {bs_toggle: "modal", bs_target: "#exampleModal"}, style: "width:85%" %>
     </div>
 
     <div class="nav-link btn-group dropup">

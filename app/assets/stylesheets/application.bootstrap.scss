@@ -6,6 +6,7 @@
 body {
   background-color: #212529;
   color: azure;
+  font-family: monospace;
 }
 
 .set-position-fixed {
@@ -16,7 +17,7 @@ body {
   height: 100%; 
 }
 
-.set-border-y {
+.set-border-x {
   border-left: 1px solid white;
   border-right: 1px solid white;
 }
@@ -32,14 +33,66 @@ body {
 
 .nav {
   #logo {
-    font-size: xx-large;
+    font-size: 39px;
     text-decoration: none;
   }
   .nav-link {
-    font-size: large;
+    font-size: x-large;
     color: azure;
     &:hover {
       color: skyblue;
     }
+  }
+}
+
+/* Post Show Card  */
+
+.post-card {
+  border: 1px solid white;
+  background: transparent;
+  color: azure;
+  
+  a {
+    color: azure;
+    font-size: larger;
+    font-family: monospace;
+
+    &:hover {
+      color: skyblue;
+    }
+  }
+}
+
+.post-image {
+  width: inherit;
+  height: 400px;
+}
+
+@media screen and (max-width: 767px) {
+  .root-page {
+    display: flex;
+    flex-direction: column-reverse;
+
+    .create-new-post {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+/* Home page new form */
+
+.home-form {
+  .form-control {
+    background: transparent;
+    color: azure;
+    resize: none;
+    border: none;
+    transition: background-color 0.2s;
+  }
+  .form-control::placeholder {
+    color: azure;
+  }
+  .form-control:focus {
+    background: transparent;
   }
 }

@@ -18,5 +18,7 @@ module Twitter
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.hosts << "1401-60-254-111-210.ngrok-free.app"
+    config.hosts << "1401-60-254-111-210.ngrok-free.app"
   end
 end

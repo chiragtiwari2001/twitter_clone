@@ -1,0 +1,46 @@
+<div class="my-3">
+  <%= link_to "BACK", :back, class: "btn btn-outline-light me-3", style: "float:left" %>
+  <h3>POST<h3>
+</div>
+<div class="card post-card">
+  
+  <div class="card-header">
+    <%= link_to @post.user.username, "#", style: "text-decoration:none;" %>
+  </div>
+
+  <div class="card-body">
+    <%= @post.content %>
+  </div>
+
+  <% if @post.images.attached? %>
+    <div id="carouselExample" class="carousel slide container">
+      
+      <div class="carousel-inner">
+        <% @post.images.each do |image| %>
+          <div class="carousel-item active">
+            <%= image_tag(image, class: "rounded post-image") %>
+          </div>
+        <% end %>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  <% end %>
+
+  <div class="card-footer">
+    <%= button_to "Comment", "#", class: "btn btn-primary me-2", style: "float:left"%>
+
+    <% if @post.user == current_user %>
+      <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning me-2", method: :get, style: "float:left" %>
+
+      <%= button_to "Delete", post_path(@post), method: :delete, class: "btn btn-outline-danger", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+    <% end %>
+  </div>
+</div>
