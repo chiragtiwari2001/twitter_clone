@@ -34,6 +34,8 @@ gem 'activeadmin', '~> 3.1.0'
 
 gem 'devise', '~> 4.9.3'
 
+gem 'rolify'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
