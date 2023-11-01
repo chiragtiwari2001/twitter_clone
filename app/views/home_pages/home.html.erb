@@ -1,79 +1,97 @@
 <% if user_signed_in? %>
+  <div class="set-border-x">
+    <div class="row container mx-auto">
 
-  <div class="row set-border-x">
+      <!-- NAV FOR HOME PAGE -->
+      <nav class="nav">
+        <h1 class="text-center ms-auto me-auto">HOME</h1>
+      </nav>
 
-    <!-- NAV FOR HOME PAGE -->
-    <nav class="nav">
-      <h1 class="text-center ms-auto me-auto">HOME</h1>
-    </nav>
+      <!-- fORM fOR NEW POST -->
+      <div class="card post-card home-form mb-5">
+        <div class="card-body">
+          <%= form_with model: @post, url: posts_path, method: :post do |f| %>
+            <div class="row">
+              <div class="col-md-1">
+                <% if current_user.avatar.attached? %>
+                  <%= image_tag rails_blob_path(current_user.avatar, only_path: true), class: "avatar-image"%>
+                <% else %>
+                  <%= image_tag("default.jpg", alt: "pprofile image", class: "avatar-image")%>
+                <% end %>
+              </div>
+              <div class="col">
+                <%= f.text_area :content, placeholder: "What is happening?", class: "form-control", id: "autoresize" %>
+              </div>
+            </div>
 
-    <!-- fORM fOR NEW POST -->
-    <div class="card post-card home-form mb-5">
-      <div class="card-body">
-        <%= form_with model: @post, url: posts_path, method: :post do |f| %>
-          <%= f.text_area :content, placeholder: "What is happening?", class: "form-control" %>
-          <div class="card-footer">
-            
-            <% if @post.images.attached? %>
-              <% @post.images.each do |image| %>
-                <%= f.hidden_field :images, multiple: true, value: image.signed_id %>
-                <%= image_tag(image, height: 100) %>
+            <div class="card-footer mt-3">
+              
+              <% if @post.images.attached? %>
+                <% @post.images.each do |image| %>
+                  <%= f.hidden_field :images, multiple: true, value: image.signed_id %>
+                  <%= image_tag(image, height: 100) %>
+                <% end %>
               <% end %>
-            <% end %>
-            <%= f.file_field :images, multiple: true, class: "form-control", style: "width:280px; float:left; background:transparent; color:azure" %>
+              <%= f.file_field :images, multiple: true, class: "form-control", style: "width:280px; float:left; background:transparent; color:azure" %>
 
-            <%= f.submit  class:"btn btn-primary rounded-pill", style: "float:right"%>
-          </div>
-        <% end %>
+              <%= f.submit  class:"btn btn-primary rounded-pill", style: "float:right"%>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- DISPLAY TOTAL POST COUNT -->
+      <div class="text-center" style="margin-top:-35px">
+        <%= link_to "Show #{Post.count} Posts", posts_path, style: "text-decoration:none;" %>
       </div>
     </div>
 
-    <!-- DISPLAY TOTAL POST COUNT -->
-    <div class="text-center" style="margin-top:-35px">
-      <%= link_to "Show #{Post.count} Posts", posts_path, style: "text-decoration:none;" %>
-    </div>
-  </div>
+    <div class="row container mx-auto">
+      <% @posts.each do |post| %>
 
-  <div class="row">
-    <% @posts.each do |post| %>
+        <!-- Card For the Post -->
+        <div class="card post-card mb-2">     
+          <div class="card-header">
+            <% if post.user.avatar.attached? %>
+              <%= image_tag rails_blob_path(post.user.avatar, only_path: true)%>
+            <% else %>
+              <%= image_tag("default.jpg", alt: "profile image") %>
+            <% end %>
+            <%= link_to post.user.username, user_path(post.user) %>
+          </div>
+          <div class="card-body">
+            <p> <%= post.content %> </p>
+          </div>
 
-      <!-- Card For the Post -->
-      <div class="card post-card mb-2">     
-        <div class="card-header">
-          <%= link_to post.user.username, "#", style: "text-decoration:none;" %>
-        </div>
-        <div class="card-body">
-          <p> <%= post.content %> </p>
-        </div>
+          <!-- CAROUSEL FOR MULTIPLE IMAGES -->
+          <% if post.images.attached? %>
+            <div id="carouselExample-<%= post.id%>" class="carousel slide container my-2">
 
-        <!-- CAROUSEL FOR MULTIPLE IMAGES -->
-        <% if post.images.attached? %>
-          <div id="carouselExample-<%= post.id%>" class="carousel slide container my-2">
-
-            <div class="carousel-inner">
-              <% post.images.each do |image| %>
-                <div class="carousel-item active">
-                  <%= image_tag(image, class: "rounded post-image") %>
-                </div>
+              <div class="carousel-inner">
+                <% post.images.each do |image| %>
+                  <div class="carousel-item active">
+                    <%= image_tag(image, class: "rounded post-image") %>
+                  </div>
+                <% end %>
+              </div>
+              <% if post.images.count > 1 %>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%= post.id%>" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%= post.id %>" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
               <% end %>
             </div>
-            <% if post.images.count > 1 %>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%= post.id%>" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%= post.id %>" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            <% end %>
+          <% end %>
+          <div class="card-footer">
+            <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill", style: "float:right;" %>
           </div>
-        <% end %>
-        <div class="card-footer">
-          <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill", style: "float:right;" %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 
 <% else %>

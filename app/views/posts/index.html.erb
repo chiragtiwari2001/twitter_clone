@@ -1,88 +1,96 @@
-<h1 class="text-center mt-2">All Posts</h1>
+<div class="set-border-x">
+  <h1 class="text-center container mt-2">All Posts</h1>
 
-<div>
-  <% @posts.each do |post| %>
-    <div class="card post-card mb-3">
-      
-      <div class="card-header">
-        <%= link_to post.user.username, "#", style: "text-decoration:none;" %>
-      </div>
+  <div class="container">
+    <% @posts.each do |post| %>
+      <div class="card post-card mb-3">
+        
+        <div class="card-header">
+          <% if post.user.avatar.attached? %>
+            <%= image_tag rails_blob_path(post.user.avatar, only_path: true)%>
+          <% else %>
+            <%= image_tag("default.jpg", alt: "profile image") %>
+          <% end %>
 
-      <div class="card-body">
-        <p> <%= post.content %> </p>
-      </div>
+          <%= link_to post.user.username, user_path(post.user), style: "text-decoration:none;" %>
+        </div>
 
-      <% if post.images.attached? %>
-        <div id="carouselExample-<%=post.id%>" class="carousel slide container">
-          
-          <div class="carousel-inner">
-            <% post.images.each do |image| %>
-              <div class="carousel-item active">
-                <%= image_tag(image, class: "rounded post-image") %>
-              </div>
+        <div class="card-body">
+          <p> <%= post.content %> </p>
+        </div>
+
+        <% if post.images.attached? %>
+          <div id="carouselExample-<%=post.id%>" class="carousel slide container">
+            
+            <div class="carousel-inner">
+              <% post.images.each do |image| %>
+                <div class="carousel-item active">
+                  <%= image_tag(image, class: "rounded post-image") %>
+                </div>
+              <% end %>
+            </div>
+
+            <% if post.images.count > 1 %>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%=post.id%>" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%=post.id%>" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             <% end %>
           </div>
+        <% end %>
 
-          <% if post.images.count > 1 %>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%=post.id%>" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%=post.id%>" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          <% end %>
+        <div class="card-footer">
+          <button class="btn btn-primary rounded-pill" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop-<%=post.id%>" style = "float:right">
+            SHOW
+          </button>
         </div>
-      <% end %>
-
-      <div class="card-footer">
-        <button class="btn btn-primary rounded-pill" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop-<%=post.id%>" style = "float:right">
-          SHOW
-        </button>
       </div>
-    </div>
 
-    <div class="modal fade" id="staticBackdrop-<%=post.id%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="color:black" >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">
-              <%= link_to post.user.username, "#", style: "text-decoration:none" %>
-            </h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <%= post.content %> <br />
+      <div class="modal fade" id="staticBackdrop-<%=post.id%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="color:black" >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                <%= link_to post.user.username, "#", style: "text-decoration:none" %>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= post.content %> <br />
 
-            <% if post.images.attached? %>
-              <div id="carouselExample-<%= post.id%>-modal" class="carousel slide container my-2">
+              <% if post.images.attached? %>
+                <div id="carouselExample-<%= post.id%>-modal" class="carousel slide container my-2">
 
-                <div class="carousel-inner">
-                  <% post.images.each do |image| %>
-                    <div class="carousel-item active">
-                      <%= image_tag(image, class: "rounded post-image") %>
-                    </div>
+                  <div class="carousel-inner">
+                    <% post.images.each do |image| %>
+                      <div class="carousel-item active">
+                        <%= image_tag(image, class: "rounded post-image") %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <% if post.images.count > 1 %>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%= post.id%>-modal" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%= post.id %>-modal" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
                   <% end %>
                 </div>
-                <% if post.images.count > 1 %>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%= post.id%>-modal" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%= post.id %>-modal" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

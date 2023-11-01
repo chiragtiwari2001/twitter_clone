@@ -5,7 +5,13 @@
 <div class="card post-card">
   
   <div class="card-header">
-    <%= link_to @post.user.username, "#", style: "text-decoration:none;" %>
+    <% if @post.user.avatar.attached? %>
+      <%= image_tag rails_blob_path(@post.user.avatar, only_path: true)%>
+    <% else %>
+      <%= image_tag("default.jpg", alt: "profile image") %>
+    <% end %>
+
+    <%= link_to @post.user.username, user_path(@post.user), style: "text-decoration:none;" %>
   </div>
 
   <div class="card-body">

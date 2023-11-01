@@ -1,0 +1,85 @@
+<div class="set-border-x">
+  <div class="card profile mb-3">
+
+    <div class="card-header">
+      <%= link_to "BACK", :back, class: "btn btn-outline-light me-2" %>
+      <div>
+      <h3><%= @user.username  %></h3>
+      <%= @user.posts.count %> Posts
+      </div>
+    </div>
+      <% if @user.profile_background.attached? %>
+        <div class="row">
+          <%= image_tag rails_blob_path(@user.profile_background, only_path: true), class: "profile-banner" %>
+        </div>
+      <% else %>
+        <div class="default-banner">
+        </div>
+      <% end %>
+
+    <div class="card-body">
+      <% if @user == current_user %>
+        <%= button_to "Edit profile", edit_user_registration_path, class: "btn btn-outline-light rounded-pill", method: :get %>
+      <% else %>
+        <%= button_to "Follow", "#", class: "btn btn-outline-light rounded-pill ms-2"%>
+        <%= button_to "message", "#", class: "btn btn-light rounded-pill"%>
+      <% end %>
+      <% if @user.avatar.attached? %>
+        <%= image_tag rails_blob_path(@user.avatar, only_path: true)%>
+      <% else %>
+        <%= image_tag("default.jpg", alt: "profile image")%>
+      <% end %>
+    </div>
+
+    <div class="card-footer ms-4">
+      <h4 class="mb-3"><%= @user.username %></h4>
+      <div class="details mb-2">
+        Joined at <%= @user.created_at.strftime("%B %Y") %> <br />
+        followers following
+      </div>
+    </div>
+  </div>
+
+  <div class="user-posts container mb-3">
+    <% @user.posts.each do |post| %>
+      <div class="card post-card mb-2">
+        <div class="card-header">
+          <% if post.user.avatar.attached? %>
+            <%= image_tag rails_blob_path(post.user.avatar, only_path: true)%>
+          <% else %>
+            <%= image_tag("default.jpg", alt: "profile image")%>
+          <% end %>
+          <%= link_to post.user.username, user_path(post.user)%>
+        </div>
+        <div class="card-body">
+          <%= post.content %>
+        </div>
+        <% if post.images.attached? %>
+          <div id="carouselExample-<%= post.id%>" class="carousel slide container my-2">
+
+            <div class="carousel-inner">
+              <% post.images.each do |image| %>
+                <div class="carousel-item active">
+                  <%= image_tag(image, class: "rounded post-image") %>
+                </div>
+              <% end %>
+            </div>
+            <% if post.images.count > 1 %>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%= post.id%>" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%= post.id %>" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="card-footer">
+          <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill", style: "float:right;" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

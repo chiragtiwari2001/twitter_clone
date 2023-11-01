@@ -15,7 +15,7 @@
   
   <% if user_signed_in? %>
   
-    <%= link_to 'Profile', root_path, class: "nav-link"%>
+    <%= link_to 'Profile', user_path(current_user), class: "nav-link"%>
     
     <div class="nav-link">
       <%= button_to 'POST', new_post_path, class: "btn btn-primary mb-4 rounded-pill", method: :get, data: {bs_toggle: "modal", bs_target: "#exampleModal"}, style: "width:85%" %>
@@ -23,6 +23,11 @@
 
     <div class="nav-link btn-group dropup">
       <button type="button" class="btn btn-secondary rounded-pill dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <% if current_user.avatar.attached? %>
+          <%= image_tag rails_blob_path(current_user.avatar, only_path: true) %>
+        <% else %>
+          <%= image_tag("default.jpg", alt: "profile image") %>
+        <% end %>
         <%= current_user.username %>
       </button>
       <ul class="dropdown-menu rounded">
