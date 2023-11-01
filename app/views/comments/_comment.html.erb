@@ -1,0 +1,22 @@
+<div class="card post-card">
+  <div class="card-header">
+    <% if comment.user.avatar.attached? %>
+      <%= image_tag rails_blob_path(comment.user.avatar, only_path: true)%>
+    <% else %>
+      <%= image_tag("default.jpg", alt: "profile image") %>
+    <% end %>
+    <%= link_to comment.user.username, user_path(comment.user) %> | 
+    <span><%= comment.created_at.strftime("%b %d") %></span>
+  </div>
+
+  <div class="card-body">
+    <%= comment.comment %>
+  </div>
+
+  <div class="card-footer">
+    <% if comment.user == current_user %>
+      <%= button_to "Delete", [comment.post, comment], method: :delete, class: "btn btn-outline-danger", style: "float:right", data: {turbo_method: :delete, turbo_confirm: "are you sure?"} %>
+    <% end %>
+  </div>
+
+</div>

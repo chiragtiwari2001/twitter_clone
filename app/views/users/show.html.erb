@@ -1,12 +1,10 @@
 <div class="set-border-x">
   <div class="card profile mb-3">
 
-    <div class="card-header">
-      <%= link_to "BACK", :back, class: "btn btn-outline-light me-2" %>
-      <div>
-      <h3><%= @user.username  %></h3>
-      <%= @user.posts.count %> Posts
-      </div>
+    <div class="card-header mt-2">
+      <%= link_to "BACK", :back, class: "btn btn-outline-light rounded-pill me-2" %>
+        <h3 class="me-3"><%= @user.username  %></h3>
+        <span style="color:darkgrey"><%= @user.posts.count %> Posts</span>
     </div>
       <% if @user.profile_background.attached? %>
         <div class="row">
@@ -41,7 +39,7 @@
   </div>
 
   <div class="user-posts container mb-3">
-    <% @user.posts.each do |post| %>
+    <% @user.posts.order(created_at: :desc).each do |post| %>
       <div class="card post-card mb-2">
         <div class="card-header">
           <% if post.user.avatar.attached? %>

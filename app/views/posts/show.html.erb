@@ -1,52 +1,64 @@
-<div class="my-3">
-  <%= link_to "BACK", :back, class: "btn btn-outline-light me-3", style: "float:left" %>
-  <h3>POST<h3>
-</div>
-<div class="card post-card">
-  
-  <div class="card-header">
-    <% if @post.user.avatar.attached? %>
-      <%= image_tag rails_blob_path(@post.user.avatar, only_path: true)%>
-    <% else %>
-      <%= image_tag("default.jpg", alt: "profile image") %>
-    <% end %>
+<div class="set-border-x show-page">
 
-    <%= link_to @post.user.username, user_path(@post.user), style: "text-decoration:none;" %>
-  </div>
+  <section class="container ">
+    <%= link_to "BACK", :back, class: "btn btn-outline-light rounded-pill my-2"%>
+    Post
+  </section>
 
-  <div class="card-body">
-    <%= @post.content %>
-  </div>
+  <div class="card post-card mb-3">
+    
+    <div class="card-header">
+      <% if @post.user.avatar.attached? %>
+        <%= image_tag rails_blob_path(@post.user.avatar, only_path: true)%>
+      <% else %>
+        <%= image_tag("default.jpg", alt: "profile image") %>
+      <% end %>
+      <%= link_to @post.user.username, user_path(@post.user) %>
+    </div>
+    
+    <div class="card-body">
+      <%= @post.content %>
+    </div>
 
-  <% if @post.images.attached? %>
-    <div id="carouselExample" class="carousel slide container">
-      
-      <div class="carousel-inner">
-        <% @post.images.each do |image| %>
-          <div class="carousel-item active">
-            <%= image_tag(image, class: "rounded post-image") %>
-          </div>
+    <% if @post.images.attached? %>
+      <div id="carouselExample" class="carousel slide container mb-2">
+        
+        <div class="carousel-inner">
+          <% @post.images.each do |image| %>
+            <div class="carousel-item active">
+              <%= image_tag(image, class: "rounded post-image") %>
+            </div>
+          <% end %>
+        </div>
+        <% if @post.images.count > 1 %>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         <% end %>
       </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  <% end %>
-
-  <div class="card-footer">
-    <%= button_to "Comment", "#", class: "btn btn-primary me-2", style: "float:left"%>
-
-    <% if @post.user == current_user %>
-      <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning me-2", method: :get, style: "float:left" %>
-
-      <%= button_to "Delete", post_path(@post), method: :delete, class: "btn btn-outline-danger", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
     <% end %>
+    
+    <div class="card-footer">
+      <span class="mt-2" style="float:left">
+      <%= @post.created_at.strftime("%H:%M %p | %b %d, %Y")%>
+      </span>
+      <% if @post.user == current_user %>
+        <%= button_to "Delete", post_path(@post), method: :delete, class: "btn btn-outline-danger", data: {turbo_method: :delete, turbo_confirm: "are you sure?"}, style: "float:right" %>
+
+        <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning me-2", method: :get, style: "float:right" %>
+      <% end %>
+    </div>
   </div>
+
+  <div class="card comment-card">
+    <div class="card-header">
+      <%= render 'comments/form', post: @post %>
+    </div>
+  </div>
+    <%= render @post.comments %>
 </div>

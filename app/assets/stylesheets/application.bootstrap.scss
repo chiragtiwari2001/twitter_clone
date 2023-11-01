@@ -139,6 +139,7 @@ body {
     color: azure;
     a {
       float: left;
+      text-decoration: none;
     }
   }
   .profile-banner {
@@ -165,6 +166,47 @@ body {
     color: azure;
     .details {
       color: darkgray;
+    }
+  }
+}
+
+/* Post Show Page */
+
+.show-page {
+  section {
+    border-bottom: none;
+    margin: auto;
+    font-size: xx-large;
+  }
+  .post-card {
+    border-left: none;
+    border-right: none;
+    span {
+      color:darkgray;
+    }
+  }
+  .comment-card {
+    background: transparent;
+    border: 0;
+    .form-control {
+      background: transparent;
+      color: azure;
+      resize: none;
+      border: none;
+      transition: background-color 0.2s;
+    }
+    .form-control::placeholder {
+      color: azure;
+    }
+    .form-control:focus {
+      background: transparent;
+    }
+    img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      float: left;
+      border: 1px solid black;
     }
   }
 }
