@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :posts do
+    member do
+      post :like
+      delete :unlike
+    end
     resources :comments, only: %i[create destroy]
   end
 

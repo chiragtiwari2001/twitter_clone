@@ -85,11 +85,16 @@
           </div>
         <% end %>
         <div class="card-footer">
-          <span class="mt-2" style="color:darkgray;float:left">Likes</span>
-
+          <section class="mt-2" style="float:left;">
+            <%= post.likes.count %>
+            <span style="color:darkgray;">likes</span>
+          </section>
           <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill ms-2", style: "float:right;" %>
-
-          <%= link_to "like", "#", class: "btn btn-danger rounded-pill", style: "float:right" unless post.user == current_user %>
+          <% if liked_post?(current_user, post)%>
+            <%= button_to "Dislike", unlike_post_path(post), class: "btn btn-danger rounded-pill", style: "float:right", method: :delete %>
+          <% else %>
+            <%= button_to "like", like_post_path(post), class: "btn btn-danger rounded-pill", style: "float:right", method: :post %>
+          <% end %>
         </div>
       </div>
     <% end %>

@@ -7,13 +7,25 @@
 
   <div class="card post-card mb-3">
     
-    <div class="card-header">
+    <div class="card-header row">
+      <div class="col">
       <% if @post.user.avatar.attached? %>
         <%= image_tag rails_blob_path(@post.user.avatar, only_path: true)%>
       <% else %>
         <%= image_tag("default.jpg", alt: "profile image") %>
       <% end %>
       <%= link_to @post.user.username, user_path(@post.user) %>
+      <span> | </span>
+      <%= @post.likes.count %>
+      <span>Likes</span>
+      </div>
+      <div class="col">
+      <% if @post.user == current_user %>
+        <%= button_to "Delete", post_path(@post), method: :delete, class: "btn btn-outline-danger rounded-pill", data: {turbo_method: :delete, turbo_confirm: "are you sure?"}, style: "float:right" %>
+
+        <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning rounded-pill me-2", method: :get %>
+      <% end %>
+      </div>
     </div>
     
     <div class="card-body">
@@ -47,10 +59,10 @@
       <span class="mt-2" style="float:left">
       <%= @post.created_at.strftime("%H:%M %p | %b %d, %Y")%>
       </span>
-      <% if @post.user == current_user %>
-        <%= button_to "Delete", post_path(@post), method: :delete, class: "btn btn-outline-danger rounded-pill", data: {turbo_method: :delete, turbo_confirm: "are you sure?"}, style: "float:right" %>
-
-        <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning rounded-pill me-2", method: :get %>
+      <% if liked_post?(current_user, @post)%>
+        <%= button_to "Dislike", unlike_post_path(@post), class: "btn btn-danger rounded-pill", style: "float:right", method: :delete %>
+      <% else %>
+        <%= button_to "like", like_post_path(@post), class: "btn btn-danger rounded-pill", style: "float:right", method: :post %>
       <% end %>
     </div>
   </div>
