@@ -87,7 +87,11 @@
             </div>
           <% end %>
           <div class="card-footer">
-            <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill", style: "float:right;" %>
+            <div>
+              <span class="mt-2" style="color:darkgray;float:left">likes</span>
+              <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill ms-2", style: "float:right;" %>
+              <%= link_to "like", "#", class: "btn btn-danger rounded-pill", style: "float:right"%>
+            </div>
           </div>
         </div>
       <% end %>

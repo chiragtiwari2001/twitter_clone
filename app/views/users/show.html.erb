@@ -1,4 +1,7 @@
 <div class="set-border-x">
+
+<!-- User Profile Card -->
+
   <div class="card profile mb-3">
 
     <div class="card-header mt-2">
@@ -19,7 +22,11 @@
       <% if @user == current_user %>
         <%= button_to "Edit profile", edit_user_registration_path, class: "btn btn-outline-light rounded-pill", method: :get %>
       <% else %>
-        <%= button_to "Follow", "#", class: "btn btn-outline-light rounded-pill ms-2"%>
+        <% if following?(current_user, @user) %>
+          <%= button_to "Unfollow", unfollow_user_path(@user), class: "btn btn-outline-light rounded-pill ms-2", method: :delete%>
+        <% else %>
+          <%= button_to "Follow", follow_user_path(@user), class: "btn btn-outline-light rounded-pill ms-2"%>
+        <% end %>
         <%= button_to "message", "#", class: "btn btn-light rounded-pill"%>
       <% end %>
       <% if @user.avatar.attached? %>
@@ -33,10 +40,13 @@
       <h4 class="mb-3"><%= @user.username %></h4>
       <div class="details mb-2">
         Joined at <%= @user.created_at.strftime("%B %Y") %> <br />
-        followers following
+        <%=link_to @user.followers.count, followers_user_path(@user) %> followers | 
+        <%= link_to @user.following.count, following_user_path(@user)%> following
       </div>
     </div>
   </div>
+
+  <!-- User All Posts -->
 
   <div class="user-posts container mb-3">
     <% @user.posts.order(created_at: :desc).each do |post| %>
@@ -75,7 +85,11 @@
           </div>
         <% end %>
         <div class="card-footer">
-          <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill", style: "float:right;" %>
+          <span class="mt-2" style="color:darkgray;float:left">Likes</span>
+
+          <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill ms-2", style: "float:right;" %>
+
+          <%= link_to "like", "#", class: "btn btn-danger rounded-pill", style: "float:right" unless post.user == current_user %>
         </div>
       </div>
     <% end %>

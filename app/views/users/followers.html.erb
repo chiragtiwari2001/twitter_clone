@@ -1,0 +1,34 @@
+<div class="set-border-x">
+  <!-- Page Heading -->
+  <div class="card-header">
+    <%= link_to "BACK", :back, class: "btn btn-outline-light rounded-pill my-2 ms-2"%>
+    <%= @user.username %>
+  </div>
+  <!-- User Followers -->
+  <div class="container">
+    <% @user_followers.each do |user| %>
+      <div class="card post-card  mb-2 rounded-pill">
+        <div class="card-header row">
+          <div class="col">
+            <% if user.avatar.attached? %>
+              <%= image_tag rails_blob_path(user.avatar, only_path: true)%>
+            <% else %>
+              <%= image_tag("default.jpg", alt: "profile image") %>
+            <% end %>
+            <%= link_to user.username, user_path(user) %>
+          </div>
+
+          <div class="col">
+            <% if @user == current_user %>
+              <% if following?(@user, user)%>
+                <%= button_to "Unfollow", unfollow_user_path(user), class: "btn btn-light rounded-pill", method: :delete %>
+              <% else %>
+                <%= button_to "Follow", follow_user_path(user), class: "btn btn-outline-light rounded-pill", method: :post %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -22,7 +22,7 @@
         <div class = "col mx-auto create-new-post">
           <%= yield %>
         </div>
-        <div class="col-2">
+        <div class="col-3">
           <% flash.each do |message_type, message| %>
             <div class="alert alert-<%= message_type %>"><%= message %></div>
           <% end %>

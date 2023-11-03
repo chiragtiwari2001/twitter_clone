@@ -50,7 +50,7 @@
       <% if @post.user == current_user %>
         <%= button_to "Delete", post_path(@post), method: :delete, class: "btn btn-outline-danger rounded-pill", data: {turbo_method: :delete, turbo_confirm: "are you sure?"}, style: "float:right" %>
 
-        <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning rounded-pill me-2", method: :get, style: "float:right" %>
+        <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning rounded-pill me-2", method: :get %>
       <% end %>
     </div>
   </div>
