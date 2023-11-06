@@ -1,36 +1,62 @@
-<div class="col-md-4 mx-auto">
-  <h2 class="text-center"> Sign up </h2>
-
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-
-    <div class="field">
-      <%= f.label :username %><br />
-      <%= f.text_field :username, autofocus: true, class: "form-control mb-3", placeholder: :username %>
+<div class="row">
+  <div class="col justify-content-center" style="margin:auto; font-size:100px">
+    <p class="text-center">
+     <i class="bi bi-chat-text"></i>ECHO
+    </p>
+  </div>
+  <div class="col-md-5 card post-card rounded mx-auto" style="margin-top:5%">
+    <div class="text-center mb-3 mt-3">
+      <h5>Sign up with:</h5>
+      <%- if devise_mapping.omniauthable? %>
+        <%- resource_class.omniauth_providers.each do |provider| %>
+          <%= form_tag url: omniauth_authorize_path(resource_name, provider),method: :post, data: {turbo: "false"} do %>
+            <%= submit_tag "", type: "image", src: asset_path("web_light_rd_ctn@1x.png") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
 
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-3", placeholder: :email %>
+    <h5 class="text-center">or:</h5>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="form-outline mb-4 field">
+        <%= f.text_field :username, autofocus: true, class: "form-control", placeholder: :username %>
+        <%= f.label :username %>
+      </div>
+
+      <div class="form-outline mb-4 field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: :email %>
+        <%= f.label :email %>
+      </div>
+
+      <div class="form-outline mb-4 field">
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: :password %>
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+      </div>
+
+      <div class="form-outline mb-4 field">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: :password_confirmation %>
+        <%= f.label :password_confirmation %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Sign up", class: "btn btn-primary btn-block mb-3", style:"width:100%" %>
+      </div>
+    <% end %>
+
+    <div class="text-left mb-3">
+      <p>Already a member?
+        <%- if controller_name != 'sessions' %>
+          <%= link_to "Log in", new_session_path(resource_name) %><br />
+        <% end %>
+      </p>
     </div>
 
-    <div class="field">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-control mb-3", placeholder: :password %>
-    </div>
-
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mb-3", placeholder: :password_confirmation %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit "Sign up", class: "btn btn-success" %>
-    </div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
+    <!-- <%= render "devise/shared/links" %> -->
+  </div>
 </div>

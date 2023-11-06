@@ -2,7 +2,13 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    confirmations: 'users/confirmations',
+    passwords: 'users/passwords'
+  }
 
   resources :posts do
     member do
