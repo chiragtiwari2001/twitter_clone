@@ -220,3 +220,23 @@ body {
     }
   }
 }
+
+/* Search Page */
+
+.search-page {
+  .page-header {
+    border-bottom: 1px solid grey;
+  }
+  .search-form {
+    .form-control {
+      color: azure;
+      background: transparent;
+    }
+    .form-control::placeholder {
+      color: azure;
+    }
+    .form-control:focus {
+      background: transparent;
+    }
+  }
+}

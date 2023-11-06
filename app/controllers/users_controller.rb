@@ -24,6 +24,14 @@ class UsersController < ApplicationController
     redirect_to request.referrer
   end
 
+  def explore; end
+
+  def search
+    @search = params[:query]
+    @users = User.where("username LIKE ?", "%#{@search}%") unless @search.blank?
+    render :explore 
+  end
+
   private
 
     def set_user

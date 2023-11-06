@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       post :follow
       delete :unfollow
     end
+    get '/search', to: 'users#search', on: :collection
+    get 'explore', to: 'users#explore', on: :collection
   end
 
   root 'home_pages#home'
