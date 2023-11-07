@@ -6,4 +6,8 @@ module ApplicationHelper
   def following?(user, other_user)
     user.following.include?(other_user)
   end
+
+  def bookmarked?(post)
+    current_user.bookmark_posts.include?(post)
+  end
 end

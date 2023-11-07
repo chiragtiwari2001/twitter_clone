@@ -50,6 +50,9 @@ body {
     height: 40px;
     border: 1px solid black;
   }
+  .dropup {
+    margin-top: auto;
+  }
 }
 
 /* Post Show Card  */
@@ -126,6 +129,12 @@ body {
   }
   .card-footer {
     border-top: none;
+  }
+}
+
+.pin-button {
+  a{
+    float: right;
   }
 }
 

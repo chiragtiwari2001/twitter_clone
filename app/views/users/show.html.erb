@@ -9,14 +9,7 @@
         <h3 class="me-3"><%= @user.username  %></h3>
         <span style="color:darkgrey"><%= @user.posts.count %> Posts</span>
     </div>
-      <% if @user.profile_background.attached? %>
-        <div class="row">
-          <%= image_tag rails_blob_path(@user.profile_background, only_path: true), class: "profile-banner" %>
-        </div>
-      <% else %>
-        <div class="default-banner">
-        </div>
-      <% end %>
+    <%= render 'sharred/user_banner', user: @user %>
 
     <div class="card-body">
       <% if @user == current_user %>
@@ -29,11 +22,7 @@
         <% end %>
         <%= button_to "message", "#", class: "btn btn-light rounded-pill"%>
       <% end %>
-      <% if @user.avatar.attached? %>
-        <%= image_tag rails_blob_path(@user.avatar, only_path: true)%>
-      <% else %>
-        <%= image_tag("default.jpg", alt: "profile image")%>
-      <% end %>
+      <%= render 'sharred/user_avatar', object: @user %>
     </div>
 
     <div class="card-footer ms-4">
@@ -51,13 +40,14 @@
   <div class="user-posts container mb-3">
     <% @user.posts.order(created_at: :desc).each do |post| %>
       <div class="card post-card mb-2">
-        <div class="card-header">
-          <% if post.user.avatar.attached? %>
-            <%= image_tag rails_blob_path(post.user.avatar, only_path: true)%>
-          <% else %>
-            <%= image_tag("default.jpg", alt: "profile image")%>
-          <% end %>
-          <%= link_to post.user.username, user_path(post.user)%>
+        <div class="card-header row">
+          <div class="col">
+            <%= render 'sharred/user_avatar', object: post.user %>
+            <%= link_to post.user.username, user_path(post.user)%>
+          </div>
+          <div class="col pin-button">
+            <%= render 'sharred/bookmark_button', post: post%>
+          </div>
         </div>
         <div class="card-body">
           <%= post.content %>
@@ -90,11 +80,7 @@
             <span style="color:darkgray;">likes</span>
           </section>
           <%= link_to "show", post_path(post), class: "btn btn-primary rounded-pill ms-2", style: "float:right;" %>
-          <% if liked_post?(current_user, post)%>
-            <%= button_to "Dislike", unlike_post_path(post), class: "btn btn-danger rounded-pill", style: "float:right", method: :delete %>
-          <% else %>
-            <%= button_to "like", like_post_path(post), class: "btn btn-danger rounded-pill", style: "float:right", method: :post %>
-          <% end %>
+          <%= render 'sharred/liked_button', post: post %>
         </div>
       </div>
     <% end %>

@@ -1,0 +1,5 @@
+<% if object.avatar.attached? %>
+  <%= image_tag rails_blob_path(object.avatar, only_path: true)%>
+<% else %>
+  <%= image_tag("default.jpg", alt: "profile image") %>
+<% end %>

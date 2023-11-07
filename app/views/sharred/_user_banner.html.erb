@@ -1,0 +1,8 @@
+<% if user.profile_background.attached? %>
+  <div class="row">
+    <%= image_tag rails_blob_path(user.profile_background, only_path: true), class: "profile-banner" %>
+  </div>
+<% else %>
+  <div class="default-banner">
+  </div>
+<% end %>

@@ -29,5 +29,7 @@ Rails.application.routes.draw do
     get 'explore', to: 'users#explore', on: :collection
   end
 
+  resources :bookmarks, only: %i[index create destroy]
+
   root 'home_pages#home'
 end

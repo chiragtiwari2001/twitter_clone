@@ -1,18 +1,19 @@
 <div class="set-border-x">
-  <h1 class="container text-center">All Posts</h1>
+  <h1 class="text-center container ">Bookmarks</h1>
 
   <div class="container">
-    <% @posts.each do |post| %>
+    <% @bookmarks.each do |post| %>
       <div class="card post-card mb-3">
         
-        <div class="row card-header">
+        <div class="card-header row">
           <div class="col">
             <%= render 'sharred/user_avatar', object: post.user %>
 
-            <%= link_to post.user.username, user_path(post.user), style: "text-decoration:none;" %>
+            <%= link_to post.user.username, user_path(post.user) %>
           </div>
           <div class="col pin-button">
-            <%= render 'sharred/bookmark_button', post: post %>
+            <% bookmark = current_user.bookmarks.find_by(post_id: post.id)%>
+            <%= link_to '<i class="bi bi-pin-angle-fill"></i>'.html_safe, bookmark_path(bookmark), method: :delete, data: {turbo_method: :delete} %>
           </div>
         </div>
 

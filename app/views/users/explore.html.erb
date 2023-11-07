@@ -20,11 +20,7 @@
         <div class="card post-card mb-2 rounded-pill">
           <div class="card-header row">
             <div class="col">
-              <% if user.avatar.attached? %>
-                <%= image_tag rails_blob_path(user.avatar, only_path: true)%>
-              <% else %>
-                <%= image_tag("default.jpg", alt: "profile image") %>
-              <% end %>
+              <%= render 'sharred/user_avatar', object: user %>
               <%= link_to user.username, user_path(user) %>
             </div>
           </div>

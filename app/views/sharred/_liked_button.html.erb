@@ -1,0 +1,5 @@
+<% if liked_post?(current_user, post) %>
+  <%= button_to "Dislike", unlike_post_path(post), method: :delete, class: "btn btn-danger rounded-pill", style: "float:right" %>
+<% else %>
+  <%= button_to "like", like_post_path(post), class: "btn btn-danger rounded-pill", style: "float:right", method: :post%>
+<% end %>

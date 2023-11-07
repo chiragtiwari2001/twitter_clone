@@ -1,17 +1,17 @@
 <div class="nav set-position-fixed full-height flex-column">
   
   <div clas="nav-item">
-    <%= link_to '<i class="bi bi-chat-text"></i>ECHO'.html_safe, root_path, class: "nav-link", id: "logo" %>
+    <%= link_to '<i class="bi bi-chat-text"></i>ECHO'.html_safe, root_path, class: "nav-link mb-3", id: "logo" %>
   </div>
 
-  <%= link_to 'Home', root_path, class: "nav-link"%>
-  <%= link_to 'Explore', explore_users_path, class: "nav-link"%>
-  <%= link_to 'Notification', root_path, class: "nav-link"%>
-  <%= link_to 'Message', root_path, class: "nav-link"%>
-  <%= link_to 'List', root_path, class: "nav-link"%>
-  <%= link_to 'Bookmarks', root_path, class: "nav-link"%>
-  <%= link_to 'Communities', root_path, class: "nav-link"%>
-  <%= link_to 'Premium', root_path, class: "nav-link"%>
+  <%= link_to 'Home', root_path, class: "nav-link mb-2"%>
+  <%= link_to 'Explore', explore_users_path, class: "nav-link mb-2"%>
+  <%= link_to 'Notification', root_path, class: "nav-link mb-2"%>
+  <%= link_to 'Message', root_path, class: "nav-link mb-2"%>
+  <!-- <%= link_to 'List', root_path, class: "nav-link"%> -->
+  <%= link_to 'Bookmarks', bookmarks_path, class: "nav-link mb-2"%>
+  <!-- <%= link_to 'Communities', root_path, class: "nav-link"%> -->
+  <%= link_to 'Premium', root_path, class: "nav-link mb-2"%>
   
   <% if user_signed_in? %>
   

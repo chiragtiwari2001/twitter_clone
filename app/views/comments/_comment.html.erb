@@ -1,11 +1,7 @@
 <div class="card post-card">
   <div class="card-header row">
     <div class="col">
-      <% if comment.user.avatar.attached? %>
-        <%= image_tag rails_blob_path(comment.user.avatar, only_path: true)%>
-      <% else %>
-        <%= image_tag("default.jpg", alt: "profile image") %>
-      <% end %>
+      <%= render 'sharred/user_avatar', object: comment.user %>
       <%= link_to comment.user.username, user_path(comment.user) %> | 
       <span><%= comment.created_at.strftime("%b %d") %></span>
     </div>

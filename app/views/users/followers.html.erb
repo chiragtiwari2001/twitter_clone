@@ -10,21 +10,13 @@
       <div class="card post-card  mb-2 rounded-pill">
         <div class="card-header row">
           <div class="col">
-            <% if user.avatar.attached? %>
-              <%= image_tag rails_blob_path(user.avatar, only_path: true)%>
-            <% else %>
-              <%= image_tag("default.jpg", alt: "profile image") %>
-            <% end %>
+            <%= render 'sharred/user_avatar', object: user %>
             <%= link_to user.username, user_path(user) %>
           </div>
 
           <div class="col">
             <% if @user == current_user %>
-              <% if following?(@user, user)%>
-                <%= button_to "Unfollow", unfollow_user_path(user), class: "btn btn-light rounded-pill", method: :delete %>
-              <% else %>
-                <%= button_to "Follow", follow_user_path(user), class: "btn btn-outline-light rounded-pill", method: :post %>
-              <% end %>
+              <%=render 'sharred/follow_button', user: @user, other_user: user%>
             <% end %>
           </div>
         </div>

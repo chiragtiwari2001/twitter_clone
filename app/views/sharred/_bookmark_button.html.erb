@@ -1,0 +1,6 @@
+<% if bookmarked?(post)%>
+  <% bookmark = current_user.bookmarks.find_by(post_id: post.id)%>
+  <%= link_to '<i class="bi bi-pin-angle-fill"></i>'.html_safe, bookmark_path(bookmark), method: :delete, data: {turbo_method: :delete} %>
+<% else %>
+  <%= link_to '<i class="bi bi-pin-angle"></i>'.html_safe, bookmarks_path(post_id: post.id), method: :post, data:{turbo_method: :post}%>
+<% end %>
