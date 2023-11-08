@@ -32,17 +32,11 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     require 'open-uri'
+
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
-      user.password = auth.info.password
+      user.password = Devise.friendly_token[0..20]
       user.username = auth.info.name
-      if auth.info.image.present?
-        io = open(auth.info.image)
-        filename = File.basename(io.base_uri.path)
-        content_type = io.content_type
-
-        user.avatar.attach(io: io, filename: filename, content_type: content_type)
-      end
     end
   end
 end
