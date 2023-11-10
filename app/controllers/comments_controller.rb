@@ -1,12 +1,22 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: %i[create destroy]
+  before_action :set_post, only: %i[create update destroy]
   before_action :correct_user, only: :destroy
 
   def create
     @comment = current_user.comments.create(comment_params)
     if @comment.save
       flash[:success] = "Commented successfuly"
+      redirect_to @post
+    else
+      render @post, status: :see_other
+    end
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update(comment_params)
+      flash[:success] = "Comment Updated"
       redirect_to @post
     else
       render @post, status: :see_other

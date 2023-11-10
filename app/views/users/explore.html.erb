@@ -22,6 +22,9 @@
             <div class="col">
               <%= render 'sharred/user_avatar', object: user %>
               <%= link_to user.username, user_path(user) %>
+              <% if premium_user?(user) %>
+                <i class="bi bi-patch-check-fill premium"></i>
+              <% end %>
             </div>
           </div>
         </div>

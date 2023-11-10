@@ -26,7 +26,15 @@
     </div>
 
     <div class="card-footer ms-4">
-      <h4 class="mb-3"><%= @user.username %></h4>
+      <div>
+        <h4 class="mb-3">
+          <%= @user.username %>
+          <% if premium_user?(@user) %>
+            <i class="bi bi-patch-check-fill premium" style="font-size:large">
+            </i>
+          <% end %>
+        </h4>
+      </div>
       <div class="details mb-2">
         Joined at <%= @user.created_at.strftime("%B %Y") %> <br />
         <%=link_to @user.followers.count, followers_user_path(@user) %> followers | 
@@ -43,10 +51,13 @@
         <div class="card-header row">
           <div class="col">
             <%= render 'sharred/user_avatar', object: post.user %>
-            <%= link_to post.user.username, user_path(post.user)%>
+            <%= link_to post.user.username, user_path(post.user) %>
+            <% if premium_user?(post.user) %>
+              <i class="bi bi-patch-check-fill premium"></i>
+            <% end %>
           </div>
           <div class="col pin-button">
-            <%= render 'sharred/bookmark_button', post: post%>
+            <%= render 'sharred/bookmark_button', post: post if premium_user?(current_user) %>
           </div>
         </div>
         <div class="card-body">

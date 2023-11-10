@@ -51,9 +51,12 @@
             <div class="col">
               <%= render 'sharred/user_avatar', object: post.user %>
               <%= link_to post.user.username, user_path(post.user) %>
+              <% if premium_user?(post.user) %>
+                <i class="bi bi-patch-check-fill premium"></i>
+              <% end %>
             </div>
             <div class="col pin-button">
-              <%= render 'sharred/bookmark_button', post: post %>
+              <%= render 'sharred/bookmark_button', post: post if premium_user?(current_user) %>
             </div>
           </div>
           <div class="card-body">
