@@ -7,4 +7,9 @@ class HomePagesController < ApplicationController
                  .order(created_at: :desc)
     @post = current_user.posts.build if user_signed_in?
   end
+
+  def notification
+    set_notifications
+    # debugger
+  end
 end

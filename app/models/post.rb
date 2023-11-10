@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :bookmarks
   has_many :bookmark_users, through: :bookmarks, source: :user
+  has_many :notification, through: :user, dependent: :destroy
+  has_noticed_notifications model_name: "Notification"
 
   belongs_to :user
 

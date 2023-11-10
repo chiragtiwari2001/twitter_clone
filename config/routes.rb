@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get 'stripe/checkout/success', to: 'stripe/checkout#success'
   get 'stripe/checkout/cancel', to: 'stripe/checkout#cancel'
   post 'stripe/billing_portal', to: 'stripe/billing_portal#create'
+  get 'notification', to: 'home_pages#notification'
   # stripe listen --forward-to localhost:4242/webhook
 
   root 'home_pages#home'

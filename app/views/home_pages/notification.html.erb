@@ -1,0 +1,14 @@
+<div class="set-border-x">
+	<h1 class="text-center container ">Notifications</h1>
+	<% if @notifications.exists? %>
+		<% @unread.each do |notification| %>
+			<div class="card post-card">
+				<div class="card-header">
+					<%= render 'sharred/user_avatar', object: notification.to_notification.user_avatar %>
+					<%= link_to notification.to_notification.username, notification.to_notification.user_url %>
+					<%= link_to notification.to_notification.message, notification.to_notification.url %>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>

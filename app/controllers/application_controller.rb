@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_notifications, if: :current_user
 
   protected
 
@@ -15,5 +16,12 @@ class ApplicationController < ActionController::Base
 
     def authenticate_admin!
       redirect_to root_path unless admin?
+    end
+
+    def set_notifications
+      @notifications = Notification.where(recipient: current_user).newest_first
+      .limit(9)
+      @unread = @notifications.unread
+      @read = @notifications.read
     end
 end

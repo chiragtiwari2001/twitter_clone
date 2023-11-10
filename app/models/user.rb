@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :likes
   has_many :bookmarks
   has_many :bookmark_posts, through: :bookmarks, source: :post
+  has_many :notifications, as: :recipient, dependent: :destroy
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :following, through: :active_relationships, source: :following

@@ -10,4 +10,8 @@ module ApplicationHelper
   def bookmarked?(post)
     current_user.bookmark_posts.include?(post)
   end
+
+  def user_notification_exists?
+    current_user.notifications.unread.exists?
+  end
 end

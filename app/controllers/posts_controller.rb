@@ -7,7 +7,9 @@ class PostsController < ApplicationController
     @posts = Post.all.order(created_at: :desc)
   end
 
-  def show; end
+  def show
+    mark_notifications_as_read
+  end
 
   def new
     @post = Post.new
@@ -76,5 +78,12 @@ class PostsController < ApplicationController
 
     def already_liked?
       Like.where(user_id: current_user, post_id: params[:id]).exists?
+    end
+
+    def mark_notifications_as_read
+      if current_user
+        notifications_to_mark_as_read = @post.notifications_as_post.where(recipient: current_user)
+        notifications_to_mark_as_read.update(read_at: Time.zone.now)
+      end
     end
 end
