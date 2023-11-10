@@ -11,6 +11,9 @@
       <div class="col">
         <%= render 'sharred/user_avatar', object: @post.user %>
         <%= link_to @post.user.username, user_path(@post.user) %>
+        <% if premium_user?(@post.user) %>
+          <i class="bi bi-patch-check-fill premium"></i>
+        <% end %>
         <span> | </span>
         <%= @post.likes.count %>
         <span>Likes</span>
@@ -19,7 +22,7 @@
       <% if @post.user == current_user %>
         <%= button_to "Delete", post_path(@post), method: :delete, class: "btn btn-outline-danger rounded-pill", data: {turbo_method: :delete, turbo_confirm: "are you sure?"}, style: "float:right" %>
 
-        <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning rounded-pill me-2", method: :get %>
+        <%= button_to "Edit", edit_post_path(@post), class: "btn btn-outline-warning rounded-pill me-2", method: :get if premium_user?(current_user)%>
       <% end %>
       </div>
     </div>

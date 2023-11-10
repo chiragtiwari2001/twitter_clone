@@ -30,6 +30,10 @@ body {
   }
 }
 
+.premium {
+  color: gold;
+}
+
 /* Header */
 
 .nav {
@@ -261,4 +265,66 @@ body {
   line-height: 20px;
   cursor: pointer;
   transition: 0.3s;
+}
+
+/* Subscription-page */
+
+.subscription-page {
+  .subscription-card {
+    background-color: transparent;
+    color: azure;
+    border: 1px solid grey;
+    .card-header {
+      border: none;
+    }
+    img {
+      width: 200px;
+      height: 200px;
+    }
+    .card-footer {
+      button {
+        float: right;
+      }
+    }
+  }
+}
+
+/* Bookmark Page */
+
+.bookmark-card {
+  border: 0;
+  background-color: transparent;
+  color: azure;
+  .card-header {
+    font-style: italic;
+    font-size: larger;
+    justify-content: center;
+  }
+}
+
+/* Comment Page Modal */
+
+.comment-modal {
+  background-color: #212529;
+  color: azure;
+  .form-control {
+    background: transparent;
+    color: azure;
+    resize: none;
+    border: none;
+    transition: background-color 0.2s;
+  }
+  .form-control::placeholder {
+    color: azure;
+  }
+  .form-control:focus {
+    background: transparent;
+  }
+  img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    float: left;
+    border: 1px solid black;
+  } 
 }

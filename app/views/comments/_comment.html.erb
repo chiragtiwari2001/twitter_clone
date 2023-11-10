@@ -2,18 +2,48 @@
   <div class="card-header row">
     <div class="col">
       <%= render 'sharred/user_avatar', object: comment.user %>
-      <%= link_to comment.user.username, user_path(comment.user) %> | 
+      <%= link_to comment.user.username, user_path(comment.user) %>
+      <% if premium_user?(comment.user) %>
+        <i class="bi bi-patch-check-fill premium"></i>
+      <% end %>
+      | 
       <span><%= comment.created_at.strftime("%b %d") %></span>
     </div>
 
     <div class="col">
       <% if comment.user == current_user %>
-        <%= button_to "Delete", [comment.post, comment], method: :delete, class: "btn btn-outline-danger rounded-pill", style: "float:right", data: {turbo_method: :delete, turbo_confirm: "are you sure?"} %>
+        <%= button_to "Delete", [comment.post, comment], method: :delete, class: "btn btn-outline-danger rounded-pill ms-2", style: "float:right", data: {turbo_method: :delete, turbo_confirm: "are you sure?"} %>
+        <% if premium_user?(current_user) %>
+          <button class="btn btn-outline-warning rounded-pill" data-bs-target="#staticBackdrop-<%=comment.id%>" data-bs-toggle="modal">edit</button>
+        <% end %>
       <% end %>
     </div>
   </div>
 
   <div class="card-body">
     <%= comment.comment %>
+  </div>
+</div>
+
+<!-- Modal For Updating Comment-->
+
+<div class="modal fade" id="staticBackdrop-<%=comment.id%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content comment-modal">
+      <div class="modal-header">
+        <%= render 'sharred/user_avatar', object: comment.user %>
+        &nbsp<%= comment.user.username %>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <%= form_for(comment, url: post_comment_path(comment.post, comment)) do 
+      |f| %>
+        <div class="modal-body">
+          <%= f.text_area :comment, class: "form-control mb-3", id: "autoresize" %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit class:"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

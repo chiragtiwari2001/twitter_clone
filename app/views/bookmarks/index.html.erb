@@ -1,59 +1,68 @@
 <div class="set-border-x">
   <h1 class="text-center container ">Bookmarks</h1>
+  <% if premium_user?(current_user) %>
+    <div class="container">
+      <% @bookmarks.each do |post| %>
+        <div class="card post-card mb-3">
+          
+          <div class="card-header row">
+            <div class="col">
+              <%= render 'sharred/user_avatar', object: post.user %>
 
-  <div class="container">
-    <% @bookmarks.each do |post| %>
-      <div class="card post-card mb-3">
-        
-        <div class="card-header row">
-          <div class="col">
-            <%= render 'sharred/user_avatar', object: post.user %>
-
-            <%= link_to post.user.username, user_path(post.user) %>
+              <%= link_to post.user.username, user_path(post.user) %>
+            </div>
+            <div class="col pin-button">
+              <% bookmark = current_user.bookmarks.find_by(post_id: post.id)%>
+              <%= link_to '<i class="bi bi-pin-angle-fill"></i>'.html_safe, bookmark_path(bookmark), method: :delete, data: {turbo_method: :delete} %>
+            </div>
           </div>
-          <div class="col pin-button">
-            <% bookmark = current_user.bookmarks.find_by(post_id: post.id)%>
-            <%= link_to '<i class="bi bi-pin-angle-fill"></i>'.html_safe, bookmark_path(bookmark), method: :delete, data: {turbo_method: :delete} %>
+
+          <div class="card-body">
+            <p> <%= post.content %> </p>
           </div>
-        </div>
 
-        <div class="card-body">
-          <p> <%= post.content %> </p>
-        </div>
+          <% if post.images.attached? %>
+            <div id="carouselExample-<%=post.id%>" class="carousel slide container">
+              
+              <div class="carousel-inner">
+                <% post.images.each do |image| %>
+                  <div class="carousel-item active">
+                    <%= image_tag(image, class: "rounded post-image") %>
+                  </div>
+                <% end %>
+              </div>
 
-        <% if post.images.attached? %>
-          <div id="carouselExample-<%=post.id%>" class="carousel slide container">
-            
-            <div class="carousel-inner">
-              <% post.images.each do |image| %>
-                <div class="carousel-item active">
-                  <%= image_tag(image, class: "rounded post-image") %>
-                </div>
+              <% if post.images.count > 1 %>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%=post.id%>" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%=post.id%>" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
               <% end %>
             </div>
+          <% end %>
 
-            <% if post.images.count > 1 %>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-<%=post.id%>" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-<%=post.id%>" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            <% end %>
+          <div class="card-footer">
+            <section class="mt-2" style="float:left;">
+              <%= post.likes.count %>
+              <span style="color:darkgray;">likes</span>
+            </section>
+            <%= button_to "show", post_path(post), class:"btn btn-primary rounded-pill ms-2", method: :get %>
+            <%= render 'sharred/liked_button', post: post %>
           </div>
-        <% end %>
-
-        <div class="card-footer">
-          <section class="mt-2" style="float:left;">
-            <%= post.likes.count %>
-            <span style="color:darkgray;">likes</span>
-          </section>
-          <%= button_to "show", post_path(post), class:"btn btn-primary rounded-pill ms-2", method: :get %>
-          <%= render 'sharred/liked_button', post: post %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="card bookmark-card">
+      <div class="card-header">
+        <div class="mx-auto">
+          If you want to save your favourite posts then get yourself <a href=<%= pricing_path %>>premium</a>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

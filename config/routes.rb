@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       post :like
       delete :unlike
     end
-    resources :comments, only: %i[create destroy]
+    resources :comments, only: %i[create update destroy]
   end
 
   resources :users, only: :show do
@@ -30,6 +30,14 @@ Rails.application.routes.draw do
   end
 
   resources :bookmarks, only: %i[index create destroy]
+
+  post 'stripe/webhooks', to: 'stripe/webhooks#create'
+  get 'pricing', to: 'stripe/checkout#pricing'
+  post 'stripe/checkout', to: 'stripe/checkout#checkout'
+  get 'stripe/checkout/success', to: 'stripe/checkout#success'
+  get 'stripe/checkout/cancel', to: 'stripe/checkout#cancel'
+  post 'stripe/billing_portal', to: 'stripe/billing_portal#create'
+  # stripe listen --forward-to localhost:4242/webhook
 
   root 'home_pages#home'
 end

@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   after_create :assign_default_role
+  after_create do
+    stripe_customer = Stripe::Customer.create(email: email)
+  end
 
   rolify
   # Include default devise modules. Others available are:
@@ -7,7 +10,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :omniauthable, omniauth_providers: [:google_oauth2]
 
-  has_many :posts, dependent: :destroy
+  has_many :posts, dependent: :delete_all
   has_many :comments, dependent: :destroy
   has_many :likes
   has_many :bookmarks
@@ -35,7 +38,7 @@ class User < ApplicationRecord
 
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
-      user.password = Devise.friendly_token[0..20]
+      user.password = Devise.friendly_token[0, 20]
       user.username = auth.info.name
     end
   end

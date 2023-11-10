@@ -1,0 +1,47 @@
+<div class="set-border-x">
+  <!-- Subscription Page Header -->
+  <div class="card profile">
+    <div class="card-header">
+      <%= link_to "Back", :back, class: "btn btn-outline-light rounded-pill mt-2", style: "float:left" %>
+      <h1 class="text-center container ">Subscription</h1>
+    </div>
+  </div>
+  <!-- Options To Change Plan -->
+  <% if premium_user?(current_user) %>
+    <div class="card profile">
+      <div class="card-header">
+        <%= button_to "Update Plan", stripe_billing_portal_path, data: {turbo: "false"}, class: "btn btn-outline-light rounded-pill", style: "float:right "%>
+        <div class="mt-2">Want to Update your Plan?</div>
+      </div>
+    </div>
+  <% end %>
+  <!-- Card For Subscription -->
+  <div class="row container mx-auto subscription-page mt-3">
+    <% @prices.each do |price| %>
+      <div class="card subscription-card mb-3">
+        <div class="card-header">
+          <h3><%= price.product.name %> (1 <%= price.recurring.interval %>)</h3>
+        </div>
+        <%= image_tag("App_Logo.png", class:"rounded mx-auto", style: "border:1px solid grey") %>
+        <div class="card-body">
+          Benifits: 
+          <ul>
+            <li>User can edit their post.</li>
+            <li>User can delete their post.</li>
+            <li>User can save post in bookmark.</li>
+            <li>User can edit their comment.</li>
+          </ul>
+        </div>
+        <div class="card-footer row">
+          <div class="col my-auto">
+            <p class="my-auto"><%= price.unit_amount/100 %>
+            <%= price.currency.upcase %></p>
+          </div>
+          <div class="col my-auto">
+            <%= button_to "Subcribe", stripe_checkout_path(price_id: price.id), data: {turbo: "false"}, class: "btn btn-light rounded-pill" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -28,6 +28,12 @@
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
             <%= message %></div>
           <% end %>
+          <% if user_signed_in? %>
+            <%= current_user.stripe_customer_id %><br />
+            <%= current_user.plan %><br />
+            <%= current_user.subscription_status %><br />
+            <%= current_user.subscription_ends_at %>
+          <% end %>
         </div>
       </div>
     </div>
