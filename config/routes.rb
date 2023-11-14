@@ -31,6 +31,10 @@ Rails.application.routes.draw do
 
   resources :bookmarks, only: %i[index create destroy]
 
+  resources :conversations, only: %i[index create] do
+    resources :messages, only: %i[index new create]
+  end
+
   post 'stripe/webhooks', to: 'stripe/webhooks#create'
   get 'pricing', to: 'stripe/checkout#pricing'
   post 'stripe/checkout', to: 'stripe/checkout#checkout'

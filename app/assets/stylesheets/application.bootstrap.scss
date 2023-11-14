@@ -328,3 +328,57 @@ body {
     border: 1px solid black;
   } 
 }
+
+/* Message Index page */
+
+.sender-message {
+  background-color: #defcf9;
+  margin-left: auto;
+  width: 200px;
+  .card-header {
+    margin-left: -10px;
+    font-size: medium;
+    float: left;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.recevier-message {
+  background-color: lightgray;
+  margin-right: auto;
+  width: 200px;
+  .card-header {
+    margin-left: -10px;
+    float: left;
+    font-size: medium;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.message-header {
+  background-color: transparent;
+  .card-header {
+    color: azure;
+    .username {
+      color: azure;
+      &:hover {
+        color: skyblue;
+      }
+    }
+    a {
+      text-decoration: none;
+    }
+    img {
+      border-radius: 50%;
+      border: 1px solid black;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

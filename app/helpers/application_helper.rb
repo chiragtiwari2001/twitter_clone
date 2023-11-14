@@ -14,4 +14,7 @@ module ApplicationHelper
   def user_notification_exists?
     current_user.notifications.unread.exists?
   end
+
+  def conversation_exists?(user, other_user)
+  end
 end

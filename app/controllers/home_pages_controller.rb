@@ -10,6 +10,5 @@ class HomePagesController < ApplicationController
 
   def notification
     set_notifications
-    # debugger
   end
 end

@@ -5,7 +5,6 @@ class Stripe::CheckoutController < ApplicationController
   end
 
   def checkout
-    debugger
     session = Stripe::Checkout::Session.create({
       customer: current_user.stripe_customer_id,
       mode: 'subscription',

@@ -1,0 +1,55 @@
+<div class="set-border-x">
+  <div class="card message-header">
+    <div class="card-header row">
+      <div class="col">
+        <%= link_to "BACK", :back, class: "btn btn-outline-light rounded-pill" %>
+
+        <%= render 'sharred/user_avatar', object: @conversation.recipient %>
+        <%= link_to @conversation.recipient.username, user_path(@conversation.recipient.id), class: "username" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card post-card">
+    <div class="card-body">
+      <% @messages.each do |message| %>
+        <% if message.body %>
+          <% if message.user == current_user%>
+            <div class=" card sender-message mb-2">
+              <div class="card-header">
+                <%= render 'sharred/user_avatar', object: message.user %>
+                <%= message.user.username.truncate_words(1) %>
+                | 
+                <span><%= message.created_at.strftime("%b %d") %></span>
+              </div>
+              <p class="container"><%= message.body%></p>
+            </div>
+          <% else %>
+            <div class="card recevier-message mb-1">
+              <div class="card-header">
+                <%= render 'sharred/user_avatar', object: message.user %>
+                <%= message.user.username.truncate_words(1) %>
+                | 
+                <span><%= message.created_at.strftime("%b %d") %></span>
+              </div>
+              <p class="container"><%= message.body%></p>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mx-auto my-2 home-form">
+    <div>
+    <%= form_for [@conversation, @message] do |f| %>
+      <div class="col">
+        <%= f.text_field :body, placeholder: "Type your message!", class: "form-control rounded-pill", style: "border:1px solid; float:left; width:430px" %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+      </div>
+      <div class="col">
+        <%= f.submit class:"btn btn-primary rounded-pill", style:"float:right"%>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="set-border-x">
+  <h1 class="text-center container ">Message</h1>
+
+  <% @users.each do |user| %>
+    <div class="card post-card">
+      <div class="card-header row">
+        <div class="col">
+          <%= render 'sharred/user_avatar', object: user %>
+          <%= link_to user.username, user_path(user)  %>
+        </div>
+        <div class="col">
+          <%= button_to "Message", conversations_path(sender_id: current_user.id, recipient_id: user), class:"btn btn-light rounded-pill"%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
