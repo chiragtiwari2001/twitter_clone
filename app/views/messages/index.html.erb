@@ -2,7 +2,7 @@
   <div class="card message-header">
     <div class="card-header row">
       <div class="col">
-        <%= link_to "BACK", :back, class: "btn btn-outline-light rounded-pill" %>
+        <%= link_to '<i class="bi bi-arrow-left"></i>'.html_safe, session[:previous_url] || root_path, class: "btn btn-outline-light rounded-pill" %>
 
         <%= render 'sharred/user_avatar', object: @conversation.recipient %>
         <%= link_to @conversation.recipient.username, user_path(@conversation.recipient.id), class: "username" %>
@@ -43,11 +43,13 @@
     <div>
     <%= form_for [@conversation, @message] do |f| %>
       <div class="col">
-        <%= f.text_field :body, placeholder: "Type your message!", class: "form-control rounded-pill", style: "border:1px solid; float:left; width:430px" %>
+        <%= f.text_field :body, placeholder: "Type your message!", class: "form-control rounded-pill", style: "border:1px solid; float:left; width:500px" %>
         <%= f.hidden_field :user_id, value: current_user.id %>
       </div>
       <div class="col">
-        <%= f.submit class:"btn btn-primary rounded-pill", style:"float:right"%>
+        <%= f.button nil, class:"btn btn-primary rounded-pill", style:"float:right" do %>
+          <i class="bi bi-send-fill"></i>
+        <% end %>
       </div>
     <% end %>
     </div>

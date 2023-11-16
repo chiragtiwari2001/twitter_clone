@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_previous_url, only: %i[show explore followers following]
   before_action :set_user, only: %i[show followers following follow unfollow]
 
   def show; end

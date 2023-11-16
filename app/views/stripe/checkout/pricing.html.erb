@@ -2,7 +2,7 @@
   <!-- Subscription Page Header -->
   <div class="card profile">
     <div class="card-header">
-      <%= link_to "Back", :back, class: "btn btn-outline-light rounded-pill mt-2", style: "float:left" %>
+      <%= link_to '<i class="bi bi-arrow-left"></i>'.html_safe, session[:previous_url] || root_path, class: "btn btn-outline-light rounded-pill mt-2", style: "float:left" %>
       <h1 class="text-center container ">Subscription</h1>
     </div>
   </div>

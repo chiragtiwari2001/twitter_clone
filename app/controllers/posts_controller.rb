@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_previous_url, only: :show
   before_action :set_post, only: %i[show edit update like unlike]
   before_action :correct_user, only: :destroy
 
@@ -51,14 +52,14 @@ class PostsController < ApplicationController
       @like = @post.likes.create(user_id: current_user.id)
       flash[:success] = "you liked the post!" if @like.save
     end
-    redirect_to request.referrer
+    redirect_to request.referer
   end
 
   def unlike
     @like = @post.likes.find_by(user_id: current_user.id)
     @like.destroy if @like
     flash[:danger] = "you disliked the post!"
-    redirect_to request.referrer
+    redirect_to request.referer
   end
 
   private

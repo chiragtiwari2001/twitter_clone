@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_previous_url, only: :index
   before_action do
     @conversation = Conversation.find(params[:conversation_id])
   end

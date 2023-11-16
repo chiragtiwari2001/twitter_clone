@@ -2,7 +2,7 @@ class ConversationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = current_user.following
+    @users = (current_user.following + current_user.followers).uniq
     @conversations = Conversation.all
   end
 

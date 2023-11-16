@@ -1,7 +1,7 @@
 <div class="set-border-x show-page">
 
   <section class="container ">
-    <%= link_to "BACK", :back, class: "btn btn-outline-light rounded-pill my-2"%>
+    <%= link_to '<i class="bi bi-arrow-left"></i>'.html_safe, session[:previous_url] || root_path, class: "btn btn-outline-light rounded-pill my-2"%>
     Post
   </section>
 

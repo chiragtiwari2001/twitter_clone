@@ -15,7 +15,15 @@ class ApplicationController < ActionController::Base
     end
 
     def authenticate_admin!
-      redirect_to root_path unless admin?
+      if user_signed_in?
+        unless admin?
+          flash[:danger] = "you are not authorized to access this page!"
+          redirect_to root_path
+        end
+      else
+        flash[:warning] = "You must sign in first!"
+        redirect_to new_user_session_path
+      end
     end
 
     def set_notifications
@@ -23,5 +31,9 @@ class ApplicationController < ActionController::Base
       .limit(9)
       @unread = @notifications.unread
       @read = @notifications.read
+    end
+
+    def set_previous_url
+      session[:previous_url] = request.referer
     end
 end

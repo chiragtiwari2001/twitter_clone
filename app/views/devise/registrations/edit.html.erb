@@ -1,4 +1,4 @@
-<%= link_to "Back", :back, class: "btn btn-outline-light mt-2", style: "float:left"%>
+<%= link_to '<i class="bi bi-arrow-left"></i>'.html_safe, session[:previous_url] || root_path, class: "btn btn-outline-light mt-2", style: "float:left"%>
 <div class="col-md-8 mx-auto mt-2">
   <h2 class="text-center">Edit <%= resource_name.to_s.humanize %></h2>
 
