@@ -12,9 +12,9 @@
 
     <div class="col">
       <% if comment.user == current_user %>
-        <%= button_to "Delete", [comment.post, comment], method: :delete, class: "btn btn-outline-danger rounded-pill ms-2", style: "float:right", data: {turbo_method: :delete, turbo_confirm: "are you sure?"} %>
+        <%= button_to '<i class="bi bi-trash3-fill"></i>'.html_safe, [comment.post, comment], method: :delete, class: "btn btn-outline-danger rounded-pill ms-2", style: "float:right", data: {turbo_method: :delete, turbo_confirm: "are you sure?"} %>
         <% if premium_user?(current_user) %>
-          <button class="btn btn-outline-warning rounded-pill" data-bs-target="#staticBackdrop-<%=comment.id%>" data-bs-toggle="modal">edit</button>
+          <button class="btn btn-outline-warning rounded-pill" data-bs-target="#staticBackdrop-<%=comment.id%>" data-bs-toggle="modal"><i class="bi bi-pencil-square"></i></button>
         <% end %>
       <% end %>
     </div>

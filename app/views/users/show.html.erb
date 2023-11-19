@@ -20,7 +20,7 @@
         <% else %>
           <%= button_to "Follow", follow_user_path(@user), class: "btn btn-outline-light rounded-pill ms-2"%>
         <% end %>
-        <%= button_to "message", "#", class: "btn btn-light rounded-pill"%>
+        <%= button_to '<i class="bi bi-envelope"></i>'.html_safe, conversations_path(sender_id: current_user, recipient_id: @user), class: "btn btn-light rounded-pill"%>
       <% end %>
       <%= render 'sharred/user_avatar', object: @user %>
     </div>
