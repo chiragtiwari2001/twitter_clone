@@ -10,7 +10,9 @@
         <%= f.text_field :query, placeholder: "search for user!", class:"form-control rounded-pill", style: "float:left; width:500px" %>
       </div>
       <div class="col">
-        <%= f.submit "Search", class:"btn btn-primary rounded-pill mb-3", style:"float:right;"%>
+        <%= f.button nil, class: "btn btn-primary rounded-pill mb-3", style: "float:right;" do %>
+          <i class="bi bi-search"></i>
+        <% end %>
       </div>
     <% end %>
   </div>

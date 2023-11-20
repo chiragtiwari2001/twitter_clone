@@ -40,9 +40,9 @@ end
 
 #Simple User
 simple_user = User.new(
-  username: "Simple User"
-  email: "simpleuser@example.com"
-  password: "simple_user"
+  username: "Simple User",
+  email: "simpleuser@example.com",
+  password: "simple_user",
   password_confirmation: "simple_user"
 )
 simple_user.skip_confirmation!
